@@ -1,0 +1,50 @@
+<<<<<<< HEAD
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { NoticiasComponent } from './noticias/noticias.component';
+
+const routes: Routes = [
+  { path: 'noticias', component: NoticiasComponent },
+  { path: '', redirectTo: '/noticias', pathMatch: 'full' }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }HELP.md
+=======
+HELP.md
+>>>>>>> 0ad315468dc8f82b2bd34c4a9a84805e7737602f
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
