@@ -68,3 +68,4 @@ Este projeto é composto por dois módulos principais:
 
 **Desenvolvido por:**
 - Equipe PortalNoticia
+
