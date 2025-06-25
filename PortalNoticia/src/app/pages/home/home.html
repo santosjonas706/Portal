@@ -1,0 +1,59 @@
+<div class="abas-home">
+  <button [class.ativa]="abaSelecionada === 'noticias'" (click)="selecionarAba('noticias')">Notícias</button>
+  <button [class.ativa]="abaSelecionada === 'categorias'" (click)="selecionarAba('categorias')">Categorias</button>
+</div>
+
+<!-- Aba Notícias -->
+<div *ngIf="abaSelecionada === 'noticias'">
+  <h2 style="display:none;">Últimas Notícias</h2>
+  <div *ngIf="carregando" class="loading">Carregando...</div>
+  <div *ngIf="!carregando && noticias.length === 0" class="no-news">Nenhuma notícia encontrada.</div>
+
+  <!-- Manchete principal -->
+  <div *ngIf="!carregando && noticias.length > 0" class="headline-card">
+    <div class="headline-image" [ngStyle]="{'background-image': noticiaImagem(noticias[0])}"></div>
+    <div class="headline-content">
+      <h1>{{ noticias[0].titulo }}</h1>
+      <div class="headline-meta">
+        {{ noticias[0].dataPublicacao }} | {{ noticias[0].categoria?.descricao }} | {{ noticias[0].autor?.nome }}
+      </div>
+      <p>{{ noticias[0].conteudo }}</p>
+    </div>
+  </div>
+
+  <!-- Grid de notícias secundárias -->
+  <div *ngIf="noticias.length > 1" class="news-grid">
+    <div *ngFor="let noticia of noticias.slice(1)" class="news-card">
+      <div class="news-image" [ngStyle]="{'background-image': noticiaImagem(noticia)}"></div>
+      <div class="news-content">
+        <h2>{{ noticia.titulo }}</h2>
+        <div class="news-meta">
+          {{ noticia.dataPublicacao }} | {{ noticia.categoria?.descricao }} | {{ noticia.autor?.nome }}
+        </div>
+        <p>{{ noticia.conteudo }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Aba Categorias -->
+<div *ngIf="abaSelecionada === 'categorias'">
+  <h2>Categorias</h2>
+  <div class="categorias-lista">
+    <div *ngFor="let categoria of categorias" class="categoria-card">
+      <h3>{{ categoria.descricao }}</h3>
+      <div class="news-grid">
+        <div *ngFor="let noticia of categoria.noticias" class="news-card">
+          <div class="news-image" [ngStyle]="{'background-image': noticiaImagem(noticia)}"></div>
+          <div class="news-content">
+            <h2>{{ noticia.titulo }}</h2>
+            <div class="news-meta">
+              {{ noticia.dataPublicacao }} | {{ noticia.autor?.nome }}
+            </div>
+            <p>{{ noticia.conteudo }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

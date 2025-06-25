@@ -1,0 +1,13 @@
+<h3 style="text-align:center;margin-bottom:1.5rem;">Login</h3>
+<form (ngSubmit)="login()" style="max-width:300px;margin:auto;">
+  <div>
+    <label>Usuário</label>
+    <input [(ngModel)]="usuario" name="usuario" required class="form-control" />
+  </div>
+  <div>
+    <label>Senha</label>
+    <input [(ngModel)]="senha" name="senha" type="password" required class="form-control" />
+  </div>
+  <button type="submit" style="margin-top:1rem;">Entrar</button>
+  <div *ngIf="erro" style="color:red;">{{ erro }}</div>
+</form>

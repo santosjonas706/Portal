@@ -1,0 +1,84 @@
+<div *ngIf="!logado" class="login-protegido">
+  <h2>Login necessário</h2>
+  <form (ngSubmit)="loginSimples(usuario, senha)" style="max-width:300px;margin:auto;">
+    <div>
+      <label>Usuário</label>
+      <input [(ngModel)]="usuario" name="usuario" required class="form-control" autocomplete="username" />
+    </div>
+    <div>
+      <label>Senha</label>
+      <input [(ngModel)]="senha" name="senha" type="password" required class="form-control" autocomplete="current-password" />
+    </div>
+    <button type="submit" class="btn-add">Entrar</button>
+    <div *ngIf="erro" style="color:red;">{{ erro }}</div>
+  </form>
+</div>
+
+<div *ngIf="logado" style="display: flex; gap: 2rem; align-items: flex-start;">
+  <div style="flex:1; min-width:340px; max-width:500px;">
+    <h2>Gerenciar Notícias</h2>
+    <div *ngIf="erro" style="color:red;">{{ erro }}</div>
+    <div *ngIf="carregando">Carregando...</div>
+    <form (ngSubmit)="adicionarNoticia()" style="margin-bottom:2rem;">
+      <div>
+        <label>Título</label>
+        <input [(ngModel)]="novaNoticia.titulo" name="titulo" required class="form-control" />
+      </div>
+      <div>
+        <label>Conteúdo</label>
+        <textarea [(ngModel)]="novaNoticia.conteudo" name="conteudo" required class="form-control"></textarea>
+      </div>
+      <div>
+        <label>Data de Publicação</label>
+        <input [(ngModel)]="novaNoticia.dataPublicacao" name="dataPublicacao" type="date" required class="form-control" />
+      </div>
+      <div>
+        <label>Categoria</label>
+        <select [(ngModel)]="novaNoticia.categoriaId" name="categoriaId">
+          <option *ngFor="let cat of categorias" [value]="cat.id">{{ cat.descricao }}</option>
+        </select>
+      </div>
+      <div>
+        <label>Imagem</label>
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+      </div>
+      <div>
+        <label>Status</label>
+        <select [(ngModel)]="novaNoticia.status" name="status" required>
+          <option value="RASCUNHO">Rascunho</option>
+          <option value="PUBLICADA">Publicada</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-add">Adicionar Notícia</button>
+    </form>
+    <div class="news-grid">
+      <div *ngFor="let noticia of noticias" class="news-card">
+        <div class="news-image" [ngStyle]="{'background-image': noticia.imagemUrl ? 'url(' + getImagemUrl(noticia.imagemUrl) + ')' : 'none'}"></div>
+        <div class="news-content">
+          <h2>{{ noticia.titulo }}</h2>
+          <div class="news-meta">
+            {{ noticia.dataPublicacao }}
+          </div>
+          <p>{{ noticia.conteudo }}</p>
+          <button (click)="removerNoticia(noticia.id)" class="btn-remove">Remover</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="flex:1; min-width:340px; max-width:500px;">
+    <h3 style="margin-bottom:1rem;">Pré-visualização</h3>
+    <div class="news-card" *ngIf="novaNoticia.titulo || novaNoticia.conteudo || novaNoticia.dataPublicacao || novaNoticia.categoriaId || imagemSelecionada">
+      <div class="news-image" [ngStyle]="{'background-image': imagemPreview ? 'url(' + imagemPreview + ')' : 'none'}"></div>
+      <div class="news-content">
+        <h2>{{ novaNoticia.titulo || 'Título da notícia' }}</h2>
+        <div class="news-meta">
+          {{ novaNoticia.dataPublicacao || 'Data' }}
+          <ng-container *ngIf="novaNoticia.categoriaId">
+            | {{ getCategoriaDescricao(novaNoticia.categoriaId) }}
+          </ng-container>
+        </div>
+        <p>{{ novaNoticia.conteudo || 'Conteúdo da notícia...' }}</p>
+      </div>
+    </div>
+  </div>
+</div>
