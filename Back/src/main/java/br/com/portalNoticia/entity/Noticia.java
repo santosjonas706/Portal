@@ -22,7 +22,6 @@ public class Noticia {
     @ManyToOne
     private Autor autor;
 
-    @Column(nullable = false)
     private boolean destaque;
     private String imagemUrl; // Caminho/URL da imagem
     private String status; // "RASCUNHO" ou "PUBLICADA"

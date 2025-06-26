@@ -23,7 +23,7 @@ public class NoticiaDto implements Serializable {
     private String categoriaNome;
     private Integer autorId;
     private String autorNome;
-    private boolean destaque;
+    private boolean destaque = false;
     private String imagemUrl;
     private String status; // "RASCUNHO" ou "PUBLICADA"
 

@@ -109,7 +109,7 @@ export class Noticias {
         status: this.novaNoticia.status || 'RASCUNHO'
       };
       console.log('Dados enviados:', noticiaParaSalvar);
-      await this.http.post('http://localhost:8080/noticia', noticiaParaSalvar).toPromise();
+      await this.http.post('http://localhost:8080/noticia/criar', noticiaParaSalvar).toPromise();
       this.novaNoticia = { titulo: '', conteudo: '', dataPublicacao: '', imagemUrl: '' };
       this.imagemSelecionada = null;
       this.imagemPreview = null;

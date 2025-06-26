@@ -55,7 +55,7 @@ public class NoticiaController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping
+    @PostMapping("/criar")
     public ResponseEntity<NoticiaDto> insert(@RequestBody NoticiaDto dto) {
         Noticia noticia = service.fromDto(dto);
         noticia = service.insert(noticia);
